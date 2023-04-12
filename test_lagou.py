@@ -9,7 +9,6 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-#测试类
 #用例五要素，标题，前置，步骤，预期，实际
 #关于调试定位元素，可以装一个 chrome的插件叫 chropathhttps://chrome.google.com/webstore/detail/chropath/ljngjbnaijcbncmcnjfhigebomdlkcjo 好用max
 class TestLagou():
