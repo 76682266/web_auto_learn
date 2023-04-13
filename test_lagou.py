@@ -27,46 +27,56 @@ class TestLagou():
       return set(wh_now).difference(set(wh_then)).pop()
   def teardown_method(self, method):
     self.driver.quit()
+
   def test_lagou(self):
     self.driver.get("https://www.lagou.com/")
     self.driver.set_window_size(1280, 768)
-    #先等一下弹窗
+    # 先等一下弹窗
     time.sleep(2)
-    #X掉弹窗
+    # X掉弹窗
     self.driver.find_element(By.ID, "cboxClose").click()
-    #X掉之后等待准备搜索一下
+    # X掉之后等待准备搜索一下
     time.sleep(2)
-    #定位方式，具体id定位信息，搜索职位，关于各类定位可以 参考下：https://juejin.cn/post/7074779332819812389#heading-12 常用的什么id，xpath
+    # 定位方式，具体id定位信息，搜索职位，关于各类定位可以 参考下：https://juejin.cn/post/7074779332819812389#heading-12 常用的什么id，xpath
     self.driver.find_element(By.ID, "search_input").click()
     self.driver.find_element(By.ID, "search_input").send_keys("字节跳动")
     self.driver.find_element(By.ID, "search_button").click()
-    #获取主页的字节跳动公司的卡片
+    # 获取主页的字节跳动公司的卡片
     time.sleep(5)
-    res=self.driver.find_element(By.CSS_SELECTOR, ".company-card__1BXKp h3")
-    #输出实际的结果
+    res = self.driver.find_element(By.CSS_SELECTOR, ".company-card__1BXKp h3")
+    # 输出实际的结果
     print(res.text)
-    #实际和预期判断
-    assert "字节跳动"==res.text
+    # 实际和预期判断
+    assert "字节跳动" == res.text
 
+  def test_ali(self):
+    # 先搜索字节,然后编辑选中输入框搜索阿里巴巴,然后跳转阿里(需要切换窗口)主页对比下主页展示的内容是不是包含阿里巴巴集团几个字
+    self.driver.get("https://www.lagou.com/")
+    self.driver.set_window_size(1280, 768)
+    time.sleep(2)
+    self.driver.find_element(By.ID, "cboxClose").click()
+    self.driver.find_element(By.ID, "search_input").click()
+    self.driver.find_element(By.ID, "search_input").send_keys("字节跳动")
+    self.driver.find_element(By.ID, "search_button").click()
     self.driver.find_element(By.ID, "keyword").click()
-    #模拟双击,再单击选中全部模拟下清空内容
+    # 模拟双击,再单击选中全部模拟下清空内容
     element = self.driver.find_element(By.ID, "keyword")
     actions = ActionChains(self.driver)
     actions.double_click(element).perform()
-    actions.click(element).perform()
-    #变成搜索阿里巴巴
+    actions.double_click(element).perform()
+    # 变成搜索阿里巴巴
     self.driver.find_element(By.ID, "keyword").send_keys("阿里巴巴")
     self.driver.find_element(By.ID, "keyword").send_keys(Keys.ENTER)
     time.sleep(3)
-    #点击进入阿里的主页按钮，用css选择器去定位
+    # 点击进入阿里的主页按钮，用css选择器去定位
     self.driver.find_element(By.CSS_SELECTOR, ".c-btn__uA18z i").click()
     time.sleep(3)
-    #要切换下window
+    # 要切换下window
     self.vars["window_handles"] = self.driver.window_handles
     self.vars["win2984"] = self.wait_for_window(2000)
     self.vars["root"] = self.driver.current_window_handle
     self.driver.switch_to.window(self.vars["win2984"])
-    #用xpath定位公司标题开头阿里巴巴集团确认是否符合
+    # 用xpath定位公司标题开头阿里巴巴集团确认是否符合
     res2 = self.driver.find_element(By.XPATH, "/html[1]/body[1]/div[6]/div[1]/div[1]/div[1]/h1[1]/a[1]")
     # 输出实际的结果
     print(res2.text)
