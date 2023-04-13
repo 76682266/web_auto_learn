@@ -10,7 +10,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 #用例五要素，标题，前置，步骤，预期，实际
-#关于调试定位元素，可以装一个 chrome的插件叫 chropathhttps://chrome.google.com/webstore/detail/chropath/ljngjbnaijcbncmcnjfhigebomdlkcjo 好用max
+#关于调试定位元素，可以装一个 chrome的插件叫 chropath https://chrome.google.com/webstore/detail/chropath/ljngjbnaijcbncmcnjfhigebomdlkcjo 好用max
 class TestLagou():
   #用例执行之前的操作
   def setup_method(self, method):
